@@ -31,7 +31,7 @@ Resources:
     Properties:
       ImageId: ami-05fa00d4c63e32376
       InstanceType: t2.micro
-      KeyName: vincenzo
+      KeyName: abdurrahman
       SecurityGroupIds:
         - !Ref WebServerSecurityGroup
       Tags:
@@ -43,7 +43,7 @@ Resources:
             #! /bin/bash
             yum update -y
             yum install httpd -y
-            FOLDER="https://raw.githubusercontent.com/vnczalt-17/my-projects/main/aws/projects/Project-101-kittens-carousel-static-website-ec2/static-web"
+            FOLDER="https://raw.githubusercontent.com/XXXXXXXXX/my-projects/main/aws/projects/Project-101-kittens-carousel-static-website-ec2/static-web"
             cd /var/www/html
             wget $FOLDER/index.html
             wget $FOLDER/cat0.jpg
@@ -51,4 +51,11 @@ Resources:
             wget $FOLDER/cat2.jpg
             wget $FOLDER/cat3.png
             systemctl start httpd
-            systemctl enable httpd      
+            systemctl enable httpd    
+
+Outputs:
+  WebsiteURL:
+    Value: !Sub
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt WebServerHost.PublicDnsName
+    Description: Kittens Carousel Application URL
